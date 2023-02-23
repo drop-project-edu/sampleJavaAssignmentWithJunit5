@@ -1,36 +1,40 @@
 package org.dropProject.samples.sampleJavaAssignment;
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Timeout;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 // in Drop Project, all test classes must begin with "Test"
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@TestMethodOrder(MethodOrderer.MethodName.class)
+@Timeout(1)
 public class TestTeacherProject {
 
-    @Test(timeout = 500)
+    @Test
     public void test_001_FindMax() {
-        assertEquals("trying to find the maximum in [1,2,7,4]", 7, Main.findMax(new int[] { 1, 2, 7, 4 }));
-        assertEquals("trying to find the maximum in [1,2,4]", 4, Main.findMax(new int[] { 1, 2, 4 }));
+        assertEquals(7, Main.findMax(new int[] { 1, 2, 7, 4 }), "trying to find the maximum in [1,2,7,4]");
+        assertEquals(4, Main.findMax(new int[] { 1, 2, 4 }), "trying to find the maximum in [1,2,4]");
     }
 
-    @Test(timeout = 500)
+    @Test
     public void test_002_FindMaxAllNegative() {
-        assertEquals("trying to find the maximum in [-7,-5,-3,-1]", -1, Main.findMax(new int[]{-7, -5, -3, -1}));
-        assertEquals("trying to find the maximum in [-7,-5,-3,-99]", -3, Main.findMax(new int[]{-7, -5, -3, -99}));
+        assertEquals(-1, Main.findMax(new int[]{-7, -5, -3, -1}), "trying to find the maximum in [-7,-5,-3,-1]");
+        assertEquals(-3, Main.findMax(new int[]{-7, -5, -3, -99}), "trying to find the maximum in [-7,-5,-3,-99]");
     }
 
-    @Test(timeout = 500)
+    @Test
     public void test_003_FindMaxNegativeAndPositive() {
-        assertEquals("trying to find the maximum in [-7,-5,-3,-1]", 3, Main.findMax(new int[]{-7, -5, 3, -1}));
-        assertEquals("trying to find the maximum in [-7,5,-3,-99]", 5, Main.findMax(new int[]{-7, 5, -3, -99}));
+        assertEquals(3, Main.findMax(new int[]{-7, -5, 3, -1}), "trying to find the maximum in [-7,-5,-3,-1]");
+        assertEquals(5, Main.findMax(new int[]{-7, 5, -3, -99}), "trying to find the maximum in [-7,5,-3,-99]");
     }
 
-    @Test(expected = IllegalArgumentException.class, timeout = 500)
+    @Test
     public void test_004_FindMaxWithNull() {
-        Main.findMax(null);
+        assertThrows(IllegalArgumentException.class, () -> {  Main.findMax(null); });
     }
 
 }
